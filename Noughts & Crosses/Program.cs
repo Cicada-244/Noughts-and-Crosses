@@ -1,17 +1,7 @@
-﻿/*
-
-|x|o|x|
--------
-
-
-
-*/
-namespace Run
+﻿namespace Run
 {
     class program
     {
-
-
 
         static void Main(string[] args)
         {
@@ -28,12 +18,12 @@ namespace Run
             int xCount = 0;
             int oCount = 0;
 
-            Console.WriteLine("Welcome to Noughts & Crosses");
-            Thread.Sleep(1000);
-
             do
             {
                 Console.Clear();
+
+                Console.WriteLine($"\r\n█▄░█ █▀█ █░█ █▀▀ █░█ ▀█▀ █▀   ▄▀█ █▄░█ █▀▄   █▀▀ █▀█ █▀█ █▀ █▀ █▀▀ █▀\r\n█░▀█ █▄█ █▄█ █▄█ █▀█ ░█░ ▄█   █▀█ █░▀█ █▄▀   █▄▄ █▀▄ █▄█ ▄█ ▄█ ██▄ ▄█");
+
                 if (CheckWinner() != null)
                 {
                     Console.Clear();
@@ -49,8 +39,6 @@ namespace Run
 
                 ShowBoard(boardValues);
 
-
-
                 if (currentPlayer == 0)
                 {
                     Console.WriteLine("Player 1 your turn");
@@ -65,9 +53,6 @@ namespace Run
 
 
             } while (winner == null);
-
-
-
 
             //Show the current board
             void ShowBoard(string[] row)
@@ -100,9 +85,7 @@ namespace Run
             {
                 do
                 {
-
-
-                    Console.WriteLine($"{playerInfo[player, 0]} please pick a number on the board to place your peice");
+                    Console.WriteLine($"Please pick a number on the board to place your peice");
                     string playerChoice = Console.ReadLine();
 
 
@@ -134,6 +117,7 @@ namespace Run
                     UserInput(player);
                 }
 
+                //Checks to see if location choose has already been chosen
                 if (boardValues[location] == "X" || boardValues[location] == "O" ){
                     Console.WriteLine($"An {boardValues[location]} has already been placed at this location. Please choose somwhere else...");
                     UserInput(player);
@@ -141,21 +125,20 @@ namespace Run
                 else {
                     try
                     {
+                        //Trys to update the with X or O where the player has specified
                         boardValues[location] = playerInfo[currentPlayer, 1];
                     }
                     catch (IndexOutOfRangeException ex)
                     {
-                        Console.WriteLine($"{ex.Message}, {playerInfo[player, 0]} please choose a number in scope");
+                        Console.WriteLine($"{ex.Message} {playerInfo[player, 0]} please choose a number in scope");
                         UserInput(player);
                     }
                     if (player == 0)
-                    {
-                        xCount++;
+                    { 
                         currentPlayer = 1;
                     }
                     else
                     {
-                        oCount++;
                         currentPlayer = 0;
                     }
                 }
@@ -166,7 +149,7 @@ namespace Run
                 string[] r = boardValues;
 
 
-                //Check Diagional Winner
+                //Check diagonal Winner
                 if (r[1] == r[2] && r[2] == r[3])
                 {
                     winner = r[1];
@@ -191,7 +174,7 @@ namespace Run
                 }
                 else if (r[2] == r[5] && r[5] == r[8])
                 {
-                    winner = r[4];
+                    winner = r[2];
                     return winner;
                 }
                 else if (r[3] == r[6] && r[6] == r[9])
@@ -200,8 +183,7 @@ namespace Run
                     return winner;
                 }
 
-                //Check horozontal winner
-                
+                //Check horizontal winner
                 if (r[1] == r[5] && r[5] == r[9])
                 {
                     winner = r[1];
