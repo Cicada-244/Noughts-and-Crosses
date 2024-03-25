@@ -147,30 +147,40 @@ namespace Run
                     UserInput(player);
                 }
 
+                try
+                {
+
+               
                 //Checks to see if location choose has already been chosen
-                if (boardValues[location] == "X" || boardValues[location] == "O" ){
-                    Console.WriteLine($"An {boardValues[location]} has already been placed at this location. Please choose somwhere else...");
-                    UserInput(player);
-                }
-                else {
-                    try
-                    {
-                        //Trys to update the with X or O where the player has specified
-                        boardValues[location] = playerInfo[currentPlayer, 1];
-                    }
-                    catch (IndexOutOfRangeException ex)
-                    {
-                        Console.WriteLine($"{ex.Message} {playerInfo[player, 0]} please choose a number in scope");
+                    if (boardValues[location] == "X" || boardValues[location] == "O" ){
+                        Console.WriteLine($"An {boardValues[location]} has already been placed at this location. Please choose somewhere else...");
                         UserInput(player);
                     }
-                    if (player == 0)
-                    { 
-                        currentPlayer = 1;
+                    else {
+                        try
+                        {
+                            //Trys to update the with X or O where the player has specified
+                            boardValues[location] = playerInfo[currentPlayer, 1];
+                        }
+                        catch (IndexOutOfRangeException ex)
+                        {
+                            Console.WriteLine($"{ex.Message} {playerInfo[player, 0]} please choose a number in scope");
+                            UserInput(player);
+                        }
+                        if (player == 0)
+                        { 
+                            currentPlayer = 1;
+                        }
+                        else
+                        {
+                            currentPlayer = 0;
+                        }
                     }
-                    else
-                    {
-                        currentPlayer = 0;
-                    }
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"{ex.Message} {playerInfo[player, 0]} please choose a number in scope");
+                    UserInput(player);
                 }
             }
 
