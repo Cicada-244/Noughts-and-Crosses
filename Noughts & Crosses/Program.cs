@@ -1,4 +1,6 @@
-﻿namespace Run
+﻿using System.ComponentModel.Design;
+
+namespace Run
 {
     class program
     {
@@ -24,7 +26,7 @@
 
                 Console.WriteLine($"\r\n█▄░█ █▀█ █░█ █▀▀ █░█ ▀█▀ █▀   ▄▀█ █▄░█ █▀▄   █▀▀ █▀█ █▀█ █▀ █▀ █▀▀ █▀\r\n█░▀█ █▄█ █▄█ █▄█ █▀█ ░█░ ▄█   █▀█ █░▀█ █▄▀   █▄▄ █▀▄ █▄█ ▄█ ▄█ ██▄ ▄█");
 
-                if (CheckWinner() != null)
+                if (CheckWinner() == "X" || CheckWinner() == "O")
                 {
                     Console.Clear();
                     Console.WriteLine($"{winner}'s Win! Congrats");
@@ -33,7 +35,17 @@
                     Console.ReadLine();
                     Main(boardValues);
                     continue;
-                };
+                }
+                else if (CheckWinner() == "Draw")
+                {
+                    Console.Clear();
+                    Console.WriteLine($"It was a Draw... Better luck next time!");
+                    ShowBoard(boardValues);
+                    Console.WriteLine("Press any button to play again");
+                    Console.ReadLine();
+                    Main(boardValues);
+                    continue;
+                }
 
                 Console.WriteLine($"\n{playerInfo[0, 0]} = {playerInfo[0, 1]} and {playerInfo[1, 0]} = {playerInfo[1, 1]}\n");
 
@@ -61,20 +73,38 @@
 
                 string[] x = row;
 
+                //Create playing board
                 Console.WriteLine($"+-------+-------+-------+");
                 Console.WriteLine($"|       |       |       |");
-                Console.WriteLine($"|   {x[1]}   |   {x[2]}   |   {x[3]}   |");
+                Console.Write($"|   ");
+                ColorChange(x[1]);
+                Console.Write($"   |   ");
+                ColorChange(x[2]);
+                Console.Write($"   |   ");
+                ColorChange(x[3]);
+                Console.Write($"   |\n");
                 Console.WriteLine($"|       |       |       |");
                 Console.WriteLine($"+-------+-------+-------+");
                 Console.WriteLine($"|       |       |       |");
-                Console.WriteLine($"|   {x[4]}   |   {x[5]}   |   {x[6]}   |");
+                Console.Write($"|   ");
+                ColorChange(x[4]);
+                Console.Write($"   |   ");
+                ColorChange(x[5]);
+                Console.Write($"   |   ");
+                ColorChange(x[6]);
+                Console.Write($"   |\n");
                 Console.WriteLine($"|       |       |       |");
                 Console.WriteLine($"+-------+-------+-------+");
                 Console.WriteLine($"|       |       |       |");
-                Console.WriteLine($"|   {x[7]}   |   {x[8]}   |   {x[9]}   |");
+                Console.Write($"|   ");
+                ColorChange(x[7]);
+                Console.Write($"   |   ");
+                ColorChange(x[8]);
+                Console.Write($"   |   ");
+                ColorChange(x[9]);
+                Console.Write($"   |\n");
                 Console.WriteLine($"|       |       |       |");
                 Console.WriteLine($"+-------+-------+-------+");
-
 
             }
 
@@ -194,7 +224,31 @@
                     winner = r[4];
                     return winner;
                 }
+
+                int xCount = r.Count(r => r == "X");
+                int oCount = r.Count(r => r == "O");
+
+                if (xCount == 5 && oCount == 4) {
+
+                    return "Draw";
+
+                }
                 return null;
+            }
+
+            //Displays the variables in a different color if they are user placed
+            void ColorChange(string val)
+            {
+                if (val == "O" || val == "X") 
+                {
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write(val);
+                    Console.ForegroundColor = ConsoleColor.White;
+                }
+                else
+                {
+                    Console.Write(val);
+                }
             }
 
         }
